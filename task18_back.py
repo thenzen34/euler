@@ -14,29 +14,14 @@ f.close()
 n = len(data)
 sums = [[data[y][x] for x in range(y + 1)] for y in range(n)]
 
-for y in range(n):
-    maps = [[0 for x in range(y + 1)] for y in range(n)]
-    for x in range(y + 1):
-        if x < y:
-            mx = max(sums[y][x], sums[y][x + 1])
-            # print(data[y][x], x, y)
-        else:
-            mx = sums[y][x]
-            # print(data[y][x], x, y)
+for y in range(n-2, -2, -1):
+    for x in range(0, y + 1):
+        sums[y][x] += max(sums[y + 1][x], sums[y + 1][x + 1])
 
-        if y < n - 1:  # do add
+y = 0
+print(sums[0][0])
 
-            if maps[y + 1][x] < 1:
-                sums[y + 1][x] += mx
-                maps[y + 1][x] = 1
-            if maps[y + 1][x + 1] < 1:
-                sums[y + 1][x + 1] += mx
-                maps[y + 1][x + 1] = 1
-
-y = n - 1
-print(max(sums[y]))
-
-values = {x: sums[y][x] for x in range(n)}
+values = {0: sums[0][0]}
 
 
 def color_print(string):
@@ -44,15 +29,15 @@ def color_print(string):
 
 
 steps = {x: 0 for x in range(n)}
-while y != 0 and len(values) > 0:
+while y != n and len(values) > 0:
     x = max(values, key=lambda key: values[key])
     steps[y] = x
-    y -= 1
+    y += 1
     # print(x, y)
     values = {}
-    if y > 0:
-        if x > 0:
-            values[x - 1] = sums[y][x - 1]
+    if y < n:
+        if x >= 0:
+            values[x + 1] = sums[y][x + 1]
             # print('\t', values, 1)
         if x <= y:
             values[x] = sums[y][x]

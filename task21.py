@@ -25,20 +25,26 @@ def get_divisions(nmbr, self=True):
         lst.remove(nmbr)
         n -= c
     # print(n, nmbr, lst)
-    return len(lst)
+    return lst
 
 
-i = 1
-sums = 0
+def d(n):
+    lst = get_divisions(n, False)
+    # print(lst)
+    return sum(lst)
 
-while True:
-    sums += i  # текущий треугольник
-    if get_divisions(sums) > 500:
-        break
-    i += 1
 
-print(sums)
-# 76576500
-# 7.100525856018066
+def gen_friendlys(n):
+    lst = []
+    for x in range(1, n):
+        tmp = d(x)
+        if tmp != x and d(tmp) == x:
+            lst.append(x)
+
+    return lst
+
+
+res = gen_friendlys(10000)
+print(len(res), sum(res))
 
 print(time.time() - start)  # Получаем конечное время
