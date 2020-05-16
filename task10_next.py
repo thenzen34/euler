@@ -11,7 +11,7 @@ i = 2
 while i < n:
     if t[i] != 0:
         lst.append(t[i])
-        for x in range(i, n + 1, i):
+        for x in range(i ** 2, n + 1, i):
             t[x] = 0
     i += 1
 

@@ -45,6 +45,7 @@ for ix_start in range(0, str_length - need_length):
 
 max_multis = max(multis)
 ix_start = items[multis.index(max_multis)]
+print(ix_start, end=' | ')
 for ix_end in range(0, need_length - 1):
     print(digits[ix_start + ix_end], end=' * ')
 
